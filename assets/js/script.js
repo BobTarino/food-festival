@@ -1,4 +1,4 @@
-const bootstrap = require("bootstrap");
+require("bootstrap");
 
 $(document).ready(function() {
   function createEl(htmlString, attrs, ...children) {
