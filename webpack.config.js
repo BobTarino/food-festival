@@ -46,6 +46,7 @@ module.exports = {
       $: "jquery",
       jQuery: "jquery"
     }),
+    // add reporting tools with plugin to analyze potential problem areas.
     new BundleAnalyzerPlugin({
       analyzerMode: "static", // the report outputs to an HTML file in the dist folder
     })
