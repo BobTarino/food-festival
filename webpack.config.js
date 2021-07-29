@@ -1,6 +1,8 @@
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const path = require('path');
 const webpack = require("webpack");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+
 
 module.exports = {
   // entry points so webpack will know where to start the bundle of dependecies 
@@ -42,6 +44,7 @@ module.exports = {
     ]
   },
   plugins:[
+    // * new keword invokes constructor function
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery"
@@ -49,6 +52,25 @@ module.exports = {
     // add reporting tools with plugin to analyze potential problem areas.
     new BundleAnalyzerPlugin({
       analyzerMode: "static", // the report outputs to an HTML file in the dist folder
+    }),
+    // PWA manifest for downloaded app icon
+    new WebpackPwaManifest({
+      name: "Food Event",
+      short_name: "Foodies",
+      description: "An app that allows you to view upcoming food events.",
+      // homepage for the PWA relative to location of the manifest file
+      start_url: "../index.html",
+      background_color: "#01579b",
+      theme_color: "#ffffff",
+      // fingerprints tell webpack whether or not it should generate unique fingerprints (ex. manifest.lhge325d.json)
+      fingerprints: false,
+      // inject property determines whether the link to manifest.json is added to the Html
+      inject: false,
+      icons: [{
+        src: path.resolve("assets/img/icons/icon-512x512.png"),
+        sizes: [96, 128, 192, 256, 384, 512],
+        destination: path.join("assets", "icons")
+      }]
     })
   ],
   mode: 'development'
